@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Immersing Youth Community</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1 class="community-name">The Immersing Youth Community</h1>
+
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="The Immersing Youth Logo" style="width: 120px;">
+        </div>
+        <div class="hamburger"><i class="fas fa-bars"></i></div>
+        <nav class="nav-links">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="members.html">Members</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="login-section">
+            <button id="login-btn" onclick="showLoginModal()">Login</button>
+            <a href="#" id="dashboard-btn" class="hidden">Dashboard</a>
+        </div>
+    </header>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">×</span>
+            <h2>Admin Login</h2>
+            <form id="admin-login" onsubmit="handleAdminLogin(event)">
+                <input type="text" id="admin-username" placeholder="Username" required>
+                <input type="password" id="admin-password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- All Data Carousel -->
+        <section class="all-data-carousel">
+            <h2>Our Community Highlights</h2>
+            <div class="carousel-container" id="all-data-carousel"></div>
+        </section>
+
+        <section class="join-community">
+            <button id="join-btn" onclick="showForm()">Join Our Community</button>
+        </section>
+
+        <section id="membership-form" class="form-section hidden">
+            <h2>Join The Immersing Youth Community</h2>
+            <form id="join-form" onsubmit="handleFormSubmit(event)">
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="email" name="email" placeholder="Email Address" required>
+                <input type="tel" name="phone" placeholder="Phone Number" required>
+                <input type="text" name="age" placeholder="Age" required>
+                <input type="text" name="occupation" placeholder="Occupation" required>
+                <input type="text" name="location" placeholder="City/State" required>
+                <textarea name="motivation" placeholder="Why do you want to join our community?" required></textarea>
+                <textarea name="skills" placeholder="What skills can you contribute?" required></textarea>
+                <textarea name="interests" placeholder="What are your interests or hobbies?" required></textarea>
+                <label>
+                    <input type="checkbox" name="terms" required> I agree to the <a href="#">Terms and Conditions</a>
+                </label>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+
+        <section id="whatsapp-link" class="hidden">
+            <h3>Join Our WhatsApp Community</h3>
+            <a href="https://chat.whatsapp.com/FWbwHjEEjul9GTgUT92xuN" target="_blank" class="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> Join Now
+            </a>
+        </section>
+    </main>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="admin-panel hidden">
+        <h3>Admin Dashboard</h3>
+        <button onclick="logoutAdmin()">Logout</button>
+
+        <div class="admin-section">
+            <h4>Manage About Us</h4>
+            <input type="text" id="about-title" placeholder="Title">
+            <textarea id="about-content" placeholder="Description"></textarea>
+            <input type="file" id="about-image" accept="image/*">
+            <button onclick="addAbout()">Add About</button>
+            <div id="about-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>Manage Contact Us</h4>
+            <input type="text" id="contact-title" placeholder="Title">
+            <textarea id="contact-content" placeholder="Description (e.g., Email, Phone)"></textarea>
+            <input type="file" id="contact-image" accept="image/*">
+            <button onclick="addContact()">Add Contact</button>
+            <div id="contact-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>Manage Gallery</h4>
+            <input type="text" id="gallery-folder" placeholder="Folder Name (e.g., Event 2025)">
+            <input type="file" id="gallery-upload" accept="image/*" multiple>
+            <input type="text" id="image-caption" placeholder="Image caption">
+            <button onclick="uploadToGallery()">Upload</button>
+            <div id="gallery-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>Manage Blogs</h4>
+            <input type="text" id="blog-folder" placeholder="Folder Name (e.g., Series 2025)">
+            <input type="text" id="blog-title" placeholder="Blog Title">
+            <textarea id="blog-content" placeholder="Blog Content"></textarea>
+            <button onclick="addBlog()">Add Blog</button>
+            <div id="blog-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>Manage Members</h4>
+            <input type="text" id="member-folder" placeholder="Folder Name (e.g., Team 2025)">
+            <input type="text" id="member-name" placeholder="Member Name">
+            <textarea id="member-details" placeholder="Member Details"></textarea>
+            <input type="file" id="member-photo" accept="image/*">
+            <button onclick="addMember()">Add Member</button>
+            <div id="member-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>Manage Events</h4>
+            <input type="text" id="event-title" placeholder="Event Title">
+            <textarea id="event-content" placeholder="Event Description"></textarea>
+            <input type="file" id="event-image" accept="image/*">
+            <button onclick="addEvent()">Add Event</button>
+            <div id="event-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>Manage Workshops</h4>
+            <input type="text" id="workshop-title" placeholder="Workshop Title">
+            <textarea id="workshop-content" placeholder="Workshop Description"></textarea>
+            <input type="file" id="workshop-image" accept="image/*">
+            <button onclick="addWorkshop()">Add Workshop</button>
+            <div id="workshop-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>Manage Projects</h4>
+            <input type="text" id="project-title" placeholder="Project Title">
+            <textarea id="project-content" placeholder="Project Description"></textarea>
+            <input type="file" id="project-image" accept="image/*">
+            <button onclick="addProject()">Add Project</button>
+            <div id="project-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>Manage Instructors</h4>
+            <input type="text" id="instructor-title" placeholder="Instructor Name">
+            <textarea id="instructor-content" placeholder="Instructor Description"></textarea>
+            <input type="file" id="instructor-image" accept="image/*">
+            <button onclick="addInstructor()">Add Instructor</button>
+            <div id="instructor-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>Manage Testimonials</h4>
+            <input type="text" id="testimonial-title" placeholder="Testimonial Title">
+            <textarea id="testimonial-content" placeholder="Testimonial Description"></textarea>
+            <input type="file" id="testimonial-image" accept="image/*">
+            <button onclick="addTestimonial()">Add Testimonial</button>
+            <div id="testimonial-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>Manage Achievements</h4>
+            <input type="text" id="achievement-title" placeholder="Achievement Title">
+            <textarea id="achievement-content" placeholder="Achievement Description"></textarea>
+            <input type="file" id="achievement-image" accept="image/*">
+            <button onclick="addAchievement()">Add Achievement</button>
+            <div id="achievement-list"></div>
+        </div>
+    </div>
+    <!-- Programs Section for the Homepage -->
+<section class="programs-section">
+    <h2>Our Programs</h2>
+    <div class="programs-container">
+        <div class="program-card">
+            <div class="program-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3>Mentorship Program</h3>
+            <p>Connect with experienced mentors who will guide you through your personal and professional development journey.</p>
+            <a href="programs/mentorship.html" class="program-link">Learn More</a>
+        </div>
+        
+        <div class="program-card">
+            <div class="program-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3>Leadership Training</h3>
+            <p>Develop essential leadership skills through our structured training programs and real-world applications.</p>
+            <a href="programs/leadership.html" class="program-link">Learn More</a>
+        </div>
+        
+        <div class="program-card">
+            <div class="program-icon">
+                <i class="fas fa-laptop-code"></i>
+            </div>
+            <h3>Digital Skills</h3>
+            <p>Master in-demand digital skills from coding to content creation with our hands-on workshops.</p>
+            <a href="programs/digital-skills.html" class="program-link">Learn More</a>
+        </div>
+        
+        <div class="program-card">
+            <div class="program-icon">
+                <i class="fas fa-handshake"></i>
+            </div>
+            <h3>Community Service</h3>
+            <p>Make a difference through organized volunteer opportunities and community impact projects.</p>
+            <a href="programs/community-service.html" class="program-link">Learn More</a>
+        </div>
+    </div>
+    
+    <div class="program-cta">
+        <p>Interested in our programs? Join our community today!</p>
+        <button class="program-btn" onclick="showForm()">Apply Now</button>
+    </div>
+</section>
+
+<!-- Add this to your CSS file (style.css) -->
+<style>
+.programs-section {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #f8f9fa;
+}
+
+.programs-section h2 {
+    color: #333;
+    margin-bottom: 40px;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.programs-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.program-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 25px;
+    width: 280px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.program-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.program-icon {
+    margin-bottom: 20px;
+}
+
+.program-icon i {
+    font-size: 3rem;
+    color: #3a5a9b;
+}
+
+.program-card h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.program-card p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.program-link {
+    display: inline-block;
+    color: #3a5a9b;
+    font-weight: 600;
+    text-decoration: none;
+    position: relative;
+}
+
+.program-link:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #3a5a9b;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+.program-link:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.program-cta {
+    margin-top: 40px;
+}
+
+.program-cta p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.program-btn {
+    background-color: #e05c3b;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.program-btn:hover {
+    background-color: #c84c2e;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .programs-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .program-card {
+        width: 90%;
+        max-width: 350px;
+    }
+}
+</style>
+
+<!-- Add this to your admin panel in index.html -->
+<div class="admin-section">
+    <h4>Manage Programs</h4>
+    <input type="text" id="program-title" placeholder="Program Title">
+    <textarea id="program-content" placeholder="Program Description"></textarea>
+    <input type="text" id="program-icon" placeholder="Icon Class (e.g., fas fa-users)">
+    <input type="text" id="program-link" placeholder="Link URL">
+    <button onclick="addProgram()">Add Program</button>
+    <div id="program-list"></div>
+</div>
+
+<!-- Add this to your script.js file -->
+// Program Management Functions
+function addProgram() {
+    const title = document.getElementById('program-title').value;
+    const content = document.getElementById('program-content').value;
+    const icon = document.getElementById('program-icon').value;
+    const link = document.getElementById('program-link').value;
+    
+    if(!title || !content) {
+        alert('Please fill in all required fields');
+        return;
+    }
+    
+    const programData = {
+        title,
+        content,
+        icon: icon || 'fas fa-star', // Default icon
+        link: link || '#',
+        id: 'program-' + Date.now()
+    };
+    
+    // Save to localStorage
+    const programs = JSON.parse(localStorage.getItem('programs') || '[]');
+    programs.push(programData);
+    localStorage.setItem('programs', JSON.stringify(programs));
+    
+    alert('Program added successfully!');
+    loadPrograms();
+    
+    // Clear form
+    document.getElementById('program-title').value = '';
+    document.getElementById('program-content').value = '';
+    document.getElementById('program-icon').value = '';
+    document.getElementById('program-link').value = '';
+}
+
+function loadPrograms() {
+    const programList = document.getElementById('program-list');
+    if(!programList) return;
+    
+    programList.innerHTML = '';
+    const programs = JSON.parse(localStorage.getItem('programs') || '[]');
+    
+    programs.forEach(program => {
+        const div = document.createElement('div');
+        div.className = 'admin-item';
+        div.innerHTML = `
+            <h5>${program.title}</h5>
+            <p>${program.content.substring(0, 50)}...</p>
+            <button onclick="editProgram('${program.id}')">Edit</button>
+            <button onclick="deleteProgram('${program.id}')">Delete</button>
+        `;
+        programList.appendChild(div);
+    });
+    
+    // Also update frontend display if it exists
+    updateProgramsDisplay();
+}
+
+function editProgram(id) {
+    const programs = JSON.parse(localStorage.getItem('programs') || '[]');
+    const program = programs.find(p => p.id === id);
+    
+    if(program) {
+        document.getElementById('program-title').value = program.title;
+        document.getElementById('program-content').value = program.content;
+        document.getElementById('program-icon').value = program.icon;
+        document.getElementById('program-link').value = program.link;
+        
+        // Add a temporary edit button
+        const addBtn = document.querySelector('button[onclick="addProgram()"]');
+        addBtn.textContent = 'Update Program';
+        addBtn.onclick = function() {
+            updateProgram(id);
+        };
+    }
+}
+
+function updateProgram(id) {
+    const title = document.getElementById('program-title').value;
+    const content = document.getElementById('program-content').value;
+    const icon = document.getElementById('program-icon').value;
+    const link = document.getElementById('program-link').value;
+    
+    if(!title || !content) {
+        alert('Please fill in all required fields');
+        return;
+    }
+    
+    const programs = JSON.parse(localStorage.getItem('programs') || '[]');
+    const index = programs.findIndex(p => p.id === id);
+    
+    if(index !== -1) {
+        programs[index] = {
+            ...programs[index],
+            title,
+            content,
+            icon: icon || 'fas fa-star',
+            link: link || '#'
+        };
+        
+        localStorage.setItem('programs', JSON.stringify(programs));
+        alert('Program updated successfully!');
+        
+        // Reset form and button
+        document.getElementById('program-title').value = '';
+        document.getElementById('program-content').value = '';
+        document.getElementById('program-icon').value = '';
+        document.getElementById('program-link').value = '';
+        
+        const addBtn = document.querySelector('button[onclick="updateProgram(\'' + id + '\')"]');
+        addBtn.textContent = 'Add Program';
+        addBtn.onclick = addProgram;
+        
+        loadPrograms();
+    }
+}
+
+function deleteProgram(id) {
+    if(confirm('Are you sure you want to delete this program?')) {
+        const programs = JSON.parse(localStorage.getItem('programs') || '[]');
+        const filteredPrograms = programs.filter(p => p.id !== id);
+        localStorage.setItem('programs', JSON.stringify(filteredPrograms));
+        alert('Program deleted successfully!');
+        loadPrograms();
+    }
+}
+
+function updateProgramsDisplay() {
+    const container = document.querySelector('.programs-container');
+    if(!container) return;
+    
+    const programs = JSON.parse(localStorage.getItem('programs') || '[]');
+    
+    // If there are stored programs, display them instead of the default ones
+    if(programs.length > 0) {
+        container.innerHTML = '';
+        
+        programs.forEach(program => {
+            const card = document.createElement('div');
+            card.className = 'program-card';
+            card.innerHTML = `
+                <div class="program-icon">
+                    <i class="${program.icon}"></i>
+                </div>
+                <h3>${program.title}</h3>
+                <p>${program.content}</p>
+                <a href="${program.link}" class="program-link">Learn More</a>
+            `;
+            container.appendChild(card);
+        });
+    }
+}
+
+// Call this function when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Load other admin content here
+    if(document.querySelector('.programs-container')) {
+        updateProgramsDisplay();
+    }
+    
+    if(document.getElementById('program-list')) {
+        loadPrograms();
+    }
+});
+
+    <footer>
+        <p>© <span id="footer-year"></span> The Immersing Youth Community. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

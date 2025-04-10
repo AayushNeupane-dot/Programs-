@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programs - The Immersing Youth Community</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1 class="community-name">The Immersing Youth Community</h1>
+
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="The Immersing Youth Logo" style="width: 120px;">
+        </div>
+        <div class="hamburger"><i class="fas fa-bars"></i></div>
+        <nav class="nav-links">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="members.html">Members</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+            </ul>
+        </nav>
+        <div class="login-section">
+            <button id="login-btn" onclick="showLoginModal()">Login</button>
+            <a href="#" id="dashboard-btn" class="hidden">Dashboard</a>
+        </div>
+    </header>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">×</span>
+            <h2>Admin Login</h2>
+            <form id="admin-login" onsubmit="handleAdminLogin(event)">
+                <input type="text" id="admin-username" placeholder="Username" required>
+                <input type="password" id="admin-password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="content-section">
+            <div class="section-box">
+                <h2>Our Programs</h2>
+                <div id="program-container"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Admin Panel (same as index.html) -->
+    <div id="admin-panel" class="admin-panel hidden">
+        <h3>Admin Dashboard</h3>
+        <button onclick="logoutAdmin()">Logout</button>
+
+        <div class="admin-section">
+            <h4>Manage Highlights</h4>
+            <input type="text" id="highlight-title" placeholder="Title">
+            <textarea id="highlight-content" placeholder="Description"></textarea>
+            <input type="file" id="highlight-image" accept="image/*">
+            <select id="highlight-type">
+                <option value="event">Recent Event</option>
+                <option value="instructor">Our Instructor</option>
+                <option value="testimonial">Testimonial</option>
+            </select>
+            <button onclick="addHighlight()">Add Highlight</button>
+            <div id="highlight-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>Manage About Us</h4>
+            <input type="text" id="about-title" placeholder="Title">
+            <textarea id="about-content" placeholder="Description"></textarea>
+            <input type="file" id="about-image" accept="image/*">
+            <button onclick="addAbout()">Add About</button>
+            <div id="about-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>Manage Programs</h4>
+            <input type="text" id="program-title" placeholder="Title">
+            <textarea id="program-content" placeholder="Description"></textarea>
+            <input type="file" id="program-image" accept="image/*">
+            <button onclick="addProgram()">Add Program</button>
+            <div id="program-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>Manage Contact Us</h4>
+            <input type="text" id="contact-title" placeholder="Title">
+            <textarea id="contact-content" placeholder="Description (e.g., Email, Phone)"></textarea>
+            <input type="file" id="contact-image" accept="image/*">
+            <button onclick="addContact()">Add Contact</button>
+            <div id="contact-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>Manage Gallery</h4>
+            <input type="text" id="gallery-folder" placeholder="Folder Name (e.g., Event 2025)">
+            <input type="file" id="gallery-upload" accept="image/*" multiple>
+            <input type="text" id="image-caption" placeholder="Image caption">
+            <button onclick="uploadToGallery()">Upload</button>
+            <div id="gallery-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>Manage Blogs</h4>
+            <input type="text" id="blog-folder" placeholder="Folder Name (e.g., Series 2025)">
+            <input type="text" id="blog-title" placeholder="Blog Title">
+            <textarea id="blog-content" placeholder="Blog Content"></textarea>
+            <button onclick="addBlog()">Add Blog</button>
+            <div id="blog-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>Manage Members</h4>
+            <input type="text" id="member-folder" placeholder="Folder Name (e.g., Team 2025)">
+            <input type="text" id="member-name" placeholder="Member Name">
+            <textarea id="member-details" placeholder="Member Details"></textarea>
+            <input type="file" id="member-photo" accept="image/*">
+            <button onclick="addMember()">Add Member</button>
+            <div id="member-list"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 The Immersing Youth Community. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
